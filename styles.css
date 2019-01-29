@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P|VT323');
+
+body{
+   background-color: rgb(54, 54, 54);
+}
+
+h1{ 
+    width: auto;
+    height: 150px;
+    font-family: 'VT323';
+    font-weight: bold;
+    font-size: 80px;
+    color:rgb(172, 171, 171);
+    text-align: center;
+    margin-top:  5%;
+    border-bottom: 2px solid rgb(49, 49, 49);
+}
+
+canvas{
+    border:2px solid blue;
+}
+
+#container-info{
+    width: auto;
+    height: 590px;
+}
+
+#philosophy{
+    color:rgb(172, 171, 171);
+    font-family: 'VT323';
+    font-size: 40px;
+    padding-top: 5%;
+    text-align: center;
+    border-bottom: 2px solid rgb(49, 49, 49);
+}
+
+#player1{
+    margin-top: 2%;
+}
+
+h2{
+    color:rgb(172, 171, 171);
+    font-family: 'VT323';
+    font-size: 27px;
+    text-align: left;
+}
+
+.button{
+    margin-top: 2%;
+}
+
+.column .c{
+    color:rgb(172, 171, 171);
+    padding-top: 2%;
+    font-family: 'VT323';
+    font-size: 20px;
+    text-align: center;
+}
+
+#player2{
+    margin-top: 2%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#philosophy{
+    height: 200px;
+}
+
+#player1{
+
+}
+
+#player2{
+
+}
+
