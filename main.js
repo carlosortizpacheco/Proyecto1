@@ -22,13 +22,13 @@ let images={
     pl1Image: "./images/player1standr.png",
     ghostImage:"./images/ghostr.png",
     heartImage:"./images/heart.png",
-    throphyImage1:"./images/delgadina.png",
+    throphyImage1:"./images/delgadinar.png",
     throphyImage2:"./images/trophy.png",
     beerImage:"./images/beer.png"
 }
 
 let audios={
-    mainAudio:"02.mp3"
+    mainAudio:"./images/02.mp3"
 } 
 
 
@@ -75,7 +75,7 @@ class Player{
     constructor(){
         this.x=50;
         this.y= 685;
-        this.width=25;
+        this.width=20;
         this.height=50;
         this.vX=0;
         this.vY=0;
@@ -104,7 +104,7 @@ class Player{
 }
 
 class Throphy{
-    constructor(x=450, y=9, width=50, height=100, imagesrc=images.throphyImage1){
+    constructor(x=450, y=72, width=40, height=50, imagesrc=images.throphyImage1){
         this.x=x
         this.y=y
         this.width=width
@@ -205,7 +205,7 @@ function checkCollisionGhost(){
     gameOver()
 }
 
-//NO SALTA
+//LISTO
 function subir(){
     if(keys[38] || keys[32]){
         if(!anciano.jumping){
@@ -234,8 +234,9 @@ function subir(){
     anciano.vY += gravity;
 }
 
+//LISTO
 function escalar(){
-    platforms=[obstacleI,obstacleD,obstacleB, obstacle1,obstacle2,obstacle3,obstacle4,obstacle5, obstacle6, obstacle7, obstacle8, obstacle9, obstacle10, obstacle11, obstacle12, obstacle13,obstacle14,obstacle15,obstacle16,obstacle17, obstacle18,obstacle19,obstacle20,obstacle21,obstacle22,obstacle23,obstacle24,obstacle25,obstacle26]
+    platforms=[obstacle35,obstacle32, obstacle33, obstacle34, obstacle31, obstacle29,obstacle30,obstacle28,obstacle27,obstacleI,obstacleD,obstacleB, obstacle1,obstacle2,obstacle3,obstacle4,obstacle5, obstacle6, obstacle7, obstacle8, obstacle9, obstacle10, obstacle11, obstacle12, obstacle13,obstacle14,obstacle15,obstacle16,obstacle17, obstacle18,obstacle19,obstacle20,obstacle21,obstacle22,obstacle23,obstacle24,obstacle25,obstacle26]
     anciano.grounded=false
     platforms.forEach(function(platform){
         let direction = collisionCheckPlatform(anciano,platform);
@@ -252,9 +253,7 @@ function escalar(){
     }
 }
 
-    
-
-//NO SALTA
+//LISTO
 function collisionCheckPlatform(player,platform){
     let vectorX = (player.x + (player.width/2)) - (platform.x + (platform.width/2));
     let vectorY = (player.y + (player.height/2)) - (platform.y + (platform.height/2));
@@ -296,6 +295,28 @@ function scoreBeers(){
       })
 }
 
+function checkCollisionThrophy(){
+    if(anciano.y<=throphy.y && anciano.x>=throphy.x){
+        clearInterval(interval)
+        //gameOn = false
+        //music.pause()
+        //gameOverSound.play()
+        //gameover.draw() //SE VE DE LA VERGA PORQUE LAS PLATFORMS DAÑAN LA IMAGEN
+        ctx.font = "120px VT323"
+        ctx.fillStyle = "red"
+        ctx.fillText("TRUE LOVE WINS!!!", 0,330)
+    } else if(anciano.x<=throphy2.x+throphy2.width && anciano.y<=throphy2.y){
+        clearInterval(interval)
+        //gameOn = false
+        //music.pause()
+        //gameOverSound.play()
+        //gameover.draw() //SE VE DE LA VERGA PORQUE LAS PLATFORMS DAÑAN LA IMAGEN
+        ctx.font = "110px VT323"
+        ctx.fillStyle= "red"
+        ctx.fillText("MONEY WINS!!!", 150,330)
+    }
+}
+
 
 
 //Instancias
@@ -309,42 +330,50 @@ let heart3 = new Heart(738)
 let obstacle1 = new Obstacle(300,700,100,05)
 let obstacle2 = new Obstacle(100,600,100,010)
 let obstacle25 = new Obstacle(340,140,050,005) //elegirpremio
-let obstacle3 = new Obstacle(420,100,100,005) //premiolove
-let obstacle26 = new Obstacle(200,100,100,005) //premiomoney
+let obstacle3 = new Obstacle(395,120,100,005) //premiolove
+let obstacle26 = new Obstacle(200,120,125,005) //premiomoney
 let obstacle4 = new Obstacle(200,650,050,010)
 let obstacle5 = new Obstacle(370,650,050,010)
+let obstacle29 = new Obstacle(345,675,050,05)
 let obstacle6 = new Obstacle(420,600,050,010)
-let obstacle7 = new Obstacle(450,550,300,010)
-let obstacle8 = new Obstacle(600,497,100,02) //
-let obstacle9 = new Obstacle(500,500,050,010)
-let obstacle10 = new Obstacle(440,485,040,01)
-let obstacle11 = new Obstacle(410,485,040,010)
-let obstacle27 = new Obstacle(390,485,040,010)
+let obstacle7 = new Obstacle(450,570,300,010)
+let obstacle30 = new Obstacle(395,630,050,05)
+let obstacle31 = new Obstacle(750,550,050,005)
+let obstacle32 = new Obstacle (625,240,20,5) //escalones final
+let obstacle33 = new Obstacle (605,230,20,5)
+let obstacle34 = new Obstacle (580,220,20,5)
+let obstacle35 = new Obstacle (555,210,20,5)
+let obstacle8 = new Obstacle(635,525,100,02)
+let obstacle9 = new Obstacle(500,497,118,010)
+let obstacle10 = new Obstacle(465,485,040,01)
+let obstacle11 = new Obstacle(410,480,48,010)
+let obstacle27 = new Obstacle(370,485,040,001)
+let obstacle28 = new Obstacle(340,485,030,010)
 let obstacle12 = new Obstacle(300,470,040,010)
-let obstacle13 = new Obstacle(240,440,040,010)
-let obstacle14 = new Obstacle(000,440,200,010)
-let obstacle15 = new Obstacle(80,400,040,010)
+let obstacle13 = new Obstacle(240,450,070,070)
+let obstacle14 = new Obstacle(000,440,230,010) //cerveza izquierda
+let obstacle15 = new Obstacle(100,400,040,010)
 let obstacle16 = new Obstacle(150,370,040,010)
-let obstacle17 = new Obstacle(200,340,100,02) //mediano
+let obstacle17 = new Obstacle(190,340,115,02) //mediano
 let obstacle19 = new Obstacle(320,340,50,005)
-let obstacle18 = new Obstacle(400,340,350,2) //grande
-let obstacle20 = new Obstacle(750,300,050,005)
-let obstacle21 = new Obstacle(680,260,050,005)
+let obstacle18 = new Obstacle(380,340,350,2) //grande
+let obstacle20 = new Obstacle(740,320,050,005)
+let obstacle21 = new Obstacle(690,280,045,005)
 let obstacle22 = new Obstacle(750,180,050,005) //sobron
-let obstacle23 = new Obstacle(580,220,100,005)
+let obstacle23 = new Obstacle(580,260,100,005)
 let obstacle24 = new Obstacle(200,180,350,40)
 let obstacleB = new Obstacle (0,735,canvas.width,10)
 let obstacleI  = new Obstacle(-5,000,10,750)
 let obstacleD  = new Obstacle(canvas.width-5,0,10,750)
 let throphy = new Throphy()
-let throphy2= new Throphy(225,60,50,50,images.throphyImage2)
+let throphy2= new Throphy(225,80,50,50,images.throphyImage2)
 let delgadina = new Delgadina()
 let beer0 = new Miscelanea(5,415)
 let beer1 = new Miscelanea(100,710)
 let beer2 = new Miscelanea(755,154)
 
 function start(){
-    interval =setInterval(update,1000/60)   
+    interval =setInterval(update,1000/60)  
 }
 
 function update(){
@@ -382,13 +411,22 @@ function update(){
     obstacle25.draw()
     obstacle26.draw()
     obstacle27.draw()
+    obstacle28.draw()
+    obstacle29.draw()
+    obstacle30.draw()
+    obstacle31.draw()
+    obstacle32.draw()
+    obstacle33.draw()
+    obstacle34.draw()
+    obstacle35.draw()
     throphy2.draw()
     throphy.draw()
     beer0.draw()
     beer1.draw()
     beer2.draw()
-    delgadina.draw() // OJO DE THUNDERA
+    //delgadina.draw() // OJO DE THUNDERA
     checkCollisionGhost()
+    checkCollisionThrophy()
     subir()
     time()
     collisionCheckPlatform(anciano,platforms)
@@ -397,7 +435,7 @@ function update(){
     heart2.draw()
     heart3.draw()
     ghost.draw()
-    moveEnemy()
+    //moveEnemy()
     scoreBeers()
 }
 
@@ -423,17 +461,17 @@ function gameOver(){
 addEventListener('keydown', e => {
     switch(e.key) {
         case "w":
-            return anciano.y -= 75
+            return anciano.vY=-12
         case "d":
-            return anciano.x +=20 
+            return anciano.vX+=3
         case  "a":
-            return anciano.x -= 20
+            return anciano.vX-=3
         case "ArrowUp":
-            return anciano.y -=75
+            return anciano.vY-=12
         case "ArrowLeft":
-            return anciano.x -=20
+            return anciano.vX-=3
         case "ArrowRight":
-            return anciano.x +=20
+            return anciano.vX+=3
     }
    
 })
