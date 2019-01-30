@@ -300,8 +300,6 @@ function checkCollisionThrophy(){
         clearInterval(interval)
         //gameOn = false
         //music.pause()
-        //gameOverSound.play()
-        //gameover.draw() //SE VE DE LA VERGA PORQUE LAS PLATFORMS DAÑAN LA IMAGEN
         ctx.font = "120px VT323"
         ctx.fillStyle = "red"
         ctx.fillText("TRUE LOVE WINS!!!", 0,330)
@@ -309,8 +307,6 @@ function checkCollisionThrophy(){
         clearInterval(interval)
         //gameOn = false
         //music.pause()
-        //gameOverSound.play()
-        //gameover.draw() //SE VE DE LA VERGA PORQUE LAS PLATFORMS DAÑAN LA IMAGEN
         ctx.font = "110px VT323"
         ctx.fillStyle= "red"
         ctx.fillText("MONEY WINS!!!", 150,330)
