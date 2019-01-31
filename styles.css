@@ -16,13 +16,13 @@ h1{
     border-bottom: 2px solid rgb(49, 49, 49);
 }
 
-canvas{
-    border:2px solid blue;
-}
-
 #container-info{
     width: auto;
     height: 590px;
+}
+
+canvas{
+    border:2px solid rgb(17, 17, 17);
 }
 
 #philosophy{
@@ -59,6 +59,24 @@ h2{
 
 #player2{
     margin-top: 2%;
+}
+
+button{
+    color:rgb(172, 171, 171);
+    font-size: 30px;
+    font-family: 'VT323';
+    font-weight: bold;
+    margin-top:5px;
+    margin-left: 20%;
+    padding: 10px;
+}
+
+a{
+    margin-right: 5%;
+}
+
+span{
+    color:red;
 }
 
 

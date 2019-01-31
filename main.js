@@ -2,21 +2,23 @@
 let canvas = document.getElementById("canvas")
 let ctx = canvas.getContext("2d")
 
-window.onload = function() {
+
+/*window.onload = function() {
     start()
-}
+}*/
 
-
-
-    //globales
+//GLOBALES
 let platforms=[]
 let keys=[]
 let beers=[]
 let score=0;
-let gravity=0.98;
+let gravity=0.95;
 let friction=.7;
 let interval=0;
 let frames=0;
+let regresive=5
+let gameOn=false
+
 let images={
     bgImage:"./images/bgPurple.png",
     pl1Image: "./images/player1standr.png",
@@ -28,23 +30,25 @@ let images={
 }
 
 let audios={
-    mainAudio:"./images/02.mp3"
+    mainAudio:"./images/test.mp3"
 } 
 
 
+//CLASSES
 class Board{
-    constructor(x=0,y=0,width=canvas.width,height=canvas.height,image=images.bgImage){
+    constructor(x=0,y=0,width=canvas.width,height=canvas.height){
         this.x=x;
         this.y=y;
         this.width=width;
         this.height=height;
-        this.image=new Image();
-        this.image.src=image;
-        this.image.onload = this.draw.bind(this);
+        //this.image=new Image();
+        //this.image.src=image;
+        //this.image.onload = this.draw.bind(this);
     }
     
     draw(){
-        ctx.drawImage(this.image,this.x,this.y,this.width,this.height);
+        ctx.fillRect(this.x,this.y,this.width,this.height);
+        
     }
 }
 
@@ -121,7 +125,7 @@ class Throphy{
 class Enemy{
     constructor(){
         this.x=800
-        this.y=-40
+        this.y=-200
         this.width=40
         this.height=40
         this.vX=0
@@ -184,6 +188,7 @@ class Miscelanea{
     
 }
 
+
 //AUX FUNCTIONS
 //LISTO
 function time(){
@@ -192,11 +197,18 @@ function time(){
     ctx.fillText(Math.floor(frames/60),20,50)
 }
 
+function audio(){
+    let music = new Audio()
+        music.src=audios.mainAudio
+        music.loop=true
+        document.body.appendChild(music)
+}
+
 //LISTO 
 function moveEnemy(){
     angle =Math.atan2(ghost.y-anciano.y,ghost.x-anciano.x)
-    ghost.x -=Math.cos(angle)*.5
-    ghost.y-=Math.sin(angle)*.5
+    ghost.x -=Math.cos(angle)*1
+    ghost.y-=Math.sin(angle)*1
 }
 
 //LISTO
@@ -207,9 +219,9 @@ function checkCollisionGhost(){
 
 //LISTO
 function subir(){
-    if(keys[38] || keys[32]){
+    if(keys[38]){
         if(!anciano.jumping){
-          anciano.vY = -anciano.jumpStrength*2
+          anciano.vY = -anciano.jumpStrength*3
           anciano.jumping = true;
         }
     }
@@ -284,33 +296,54 @@ function collisionCheckPlatform(player,platform){
     return collisionDirection;
 }
 
+//LISTO
+function scoreDraw() {
+    ctx.fillStyle="white"
+    ctx.font = "50px VT323"
+    ctx.fillText("SCORE: " + score, 350,400)
+  }
 
+//LISTO PERO ESTA MAL
 function scoreBeers(){
-    beers=[beer0,beer1,beer2]
-    beers.forEach((beer, index) => {
-        if(anciano.checkIfCollisionWithGhost(beer)) {
-          score ++
-          beers.splice(index,1)
-        }
-      })
+    if(anciano.x >= beer1.x && anciano.y <= beer1.y) {
+        beer1.x=-50
+        score=1  
+    }
+    
+    if (anciano.x>=beer0.x+beer0.width && anciano.y<=beer0.y && beer0.y>=anciano.y && anciano.x<50){
+        beer0.x=-50
+        score=2
+    }
 }
 
+//LISTO PERO ESTA MAL, hay BUG
 function checkCollisionThrophy(){
     if(anciano.y<=throphy.y && anciano.x>=throphy.x){
         clearInterval(interval)
-        //gameOn = false
-        //music.pause()
+        scoreDraw()
         ctx.font = "120px VT323"
         ctx.fillStyle = "red"
         ctx.fillText("TRUE LOVE WINS!!!", 0,330)
     } else if(anciano.x<=throphy2.x+throphy2.width && anciano.y<=throphy2.y){
         clearInterval(interval)
-        //gameOn = false
-        //music.pause()
+        scoreDraw()
         ctx.font = "110px VT323"
         ctx.fillStyle= "red"
         ctx.fillText("MONEY WINS!!!", 150,330)
     }
+}
+
+function mensaje(){
+    if(gameOn=false){
+        ctx.fillStyle="black"
+        ctx.font = "100px VT323"
+        ctx.fillText("ENTER", 265,300)
+        ctx.fillText("PARA COMENZAR ", 115,400)
+        ctx.font = "40px VT323"
+        ctx.fillText("Recuerden solo juntos", 200,500)
+        ctx.fillText("llegaran al final", 230,550)
+    }
+    
 }
 
 
@@ -347,10 +380,10 @@ let obstacle27 = new Obstacle(370,485,040,001)
 let obstacle28 = new Obstacle(340,485,030,010)
 let obstacle12 = new Obstacle(300,470,040,010)
 let obstacle13 = new Obstacle(240,450,070,070)
-let obstacle14 = new Obstacle(000,440,230,010) //cerveza izquierda
+let obstacle14 = new Obstacle(000,440,235,010) //cerveza izquierda
 let obstacle15 = new Obstacle(100,400,040,010)
-let obstacle16 = new Obstacle(150,370,040,010)
-let obstacle17 = new Obstacle(190,340,115,02) //mediano
+let obstacle16 = new Obstacle(145,370,040,010)
+let obstacle17 = new Obstacle(185,340,115,02) //mediano
 let obstacle19 = new Obstacle(320,340,50,005)
 let obstacle18 = new Obstacle(380,340,350,2) //grande
 let obstacle20 = new Obstacle(740,320,050,005)
@@ -369,7 +402,10 @@ let beer1 = new Miscelanea(100,710)
 let beer2 = new Miscelanea(755,154)
 
 function start(){
-    interval =setInterval(update,1000/60)  
+    gameOn=false
+    interval =setInterval(update,1000/60)
+    score=0
+    mensaje()
 }
 
 function update(){
@@ -420,7 +456,7 @@ function update(){
     beer0.draw()
     beer1.draw()
     beer2.draw()
-    //delgadina.draw() // OJO DE THUNDERA
+    delgadina.draw() // OJO DE THUNDERA
     checkCollisionGhost()
     checkCollisionThrophy()
     subir()
@@ -431,29 +467,34 @@ function update(){
     heart2.draw()
     heart3.draw()
     ghost.draw()
-    //moveEnemy()
+    moveEnemy()
     scoreBeers()
 }
 
 
 function gameOver(){
     clearInterval(interval)
-    //gameOn = false
-    //music.pause()
-    //gameOverSound.play()
-    //gameover.draw() //SE VE DE LA VERGA PORQUE LAS PLATFORMS DAÑAN LA IMAGEN
+    scoreDraw()
     ctx.font = "150px VT323"
     ctx.fillStyle = "red"
     ctx.fillText("GAME OVER", 150,330)
-    //ctx.font = "20px Avenir"
-    //ctx.fillStyle = "black"
-    //ctx.fillText("Your score: " + coinScore, 170,240)
-    //ctx.fillText("Space bar to start again", 140,280)
+    gameOn=false
+    document.getElementById("start").innerText="Reiniciar"
+
 }
 
 
 //listeners
-  
+
+//LISTO
+document.getElementById("start").onclick = function() {
+    if (!gameOn) {
+        start()
+        gameOn=true
+    }
+  };
+
+//LISTO
 addEventListener('keydown', e => {
     switch(e.key) {
         case "w":
@@ -468,8 +509,13 @@ addEventListener('keydown', e => {
             return anciano.vX-=3
         case "ArrowRight":
             return anciano.vX+=3
+        case "Enter":
+            return start()
     }
-   
+})
+
+addEventListener("keyup", e=>{
+    e.key = false
 })
 
 //LISTO
@@ -485,5 +531,3 @@ addEventListener("mousemove",e=>{
       }
 
 })
-
-
