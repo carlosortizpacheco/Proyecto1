@@ -81,7 +81,7 @@ class Delgadina{
         this.heightS=canvas.height
         this.xC=xC
         this.yC=yC
-        this.radio=40
+        this.radio=60
     }
     draw(){
         
