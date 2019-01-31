@@ -17,6 +17,7 @@ let friction=.7;
 let interval;
 let frames=0;
 let regresive=5
+let randomAudio
 let gameOn=false
 
 let images={
@@ -30,8 +31,28 @@ let images={
 }
 
 let audios={
-    mainAudio:"./images/test.mp3"
+    mainAudio:"http://66.90.93.122/ost/friday-the-13th/sivavpxr/02%20-%20Cabin%20Fever.mp3",
+    slapAudio:"http://soundbible.com/mp3/Slap-SoundMaster13-49669815.mp3",
+    gameOverAudio:"http://66.90.93.122/ost/donkey-kong/kgmfokoi/01%20-%20Donkey%20Kong%20Main%20Theme.mp3"
 } 
+
+let mainAudio = new Audio()
+mainAudio.src=audios.mainAudio
+mainAudio.loop=true
+mainAudio.currentTime=0
+
+let slapAudio = new Audio()
+slapAudio.src=audios.slapAudio
+slapAudio.loop=false
+slapAudio.currentTime=0
+
+let gameOverAudio =new Audio()
+gameOverAudio.src=audios.gameOverAudio
+gameOver.loop=false
+
+
+
+
 
 
 //CLASSES
@@ -333,6 +354,16 @@ function checkCollisionThrophy(){
     }
 }
 
+function randomMusic(){
+    randomAudio=Math.floor(Math.random()*2)
+    if (randomAudio===1){
+        mainAudio.src=audios.mainAudio
+    } else if(randomAudio ===2){
+        mainAudio.src=audios.gameOverAudio
+    }
+    mainAudio.play()
+}
+
 
 //Instancias
 let board = new Board()
@@ -396,6 +427,9 @@ function start(){
     ghost.y=-200
     anciano.x=50
     anciano.y=685
+    randomMusic()
+    gameOverAudio.pause()
+    mainAudio.currentTime=0
 }
 
 function update(){
@@ -471,7 +505,11 @@ function gameOver(){
     ctx.fillText("GAME OVER", 150,330)
     gameOn=false
     document.getElementById("start").innerText="Reiniciar"
+    mainAudio.pause()
+    gameOverAudio.play()
 }
+
+
 
 
 //listeners
@@ -518,6 +556,7 @@ addEventListener("mousemove",e=>{
     if(distance<=r1+r2){
         ghost.x=Math.random()*canvas.width
         ghost.y=Math.random()*canvas.height
+        slapAudio.play()
       }
 
 })
