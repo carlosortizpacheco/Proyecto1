@@ -14,7 +14,7 @@ let beers=[]
 let score=0;
 let gravity=0.95;
 let friction=.7;
-let interval=0;
+let interval;
 let frames=0;
 let regresive=5
 let gameOn=false
@@ -26,7 +26,7 @@ let images={
     heartImage:"./images/heart.png",
     throphyImage1:"./images/delgadinar.png",
     throphyImage2:"./images/trophy.png",
-    beerImage:"./images/beer.png"
+    beerImage:"./images/beerr.png"
 }
 
 let audios={
@@ -84,7 +84,7 @@ class Player{
         this.vX=0;
         this.vY=0;
         this.speed=5;
-        this.jumpingStrength=5;
+        this.jumpingStrength=15;
         this.grounded=false;
         this.jumping=false;
         this.image= new Image();
@@ -333,20 +333,6 @@ function checkCollisionThrophy(){
     }
 }
 
-function mensaje(){
-    if(gameOn=false){
-        ctx.fillStyle="black"
-        ctx.font = "100px VT323"
-        ctx.fillText("ENTER", 265,300)
-        ctx.fillText("PARA COMENZAR ", 115,400)
-        ctx.font = "40px VT323"
-        ctx.fillText("Recuerden solo juntos", 200,500)
-        ctx.fillText("llegaran al final", 230,550)
-    }
-    
-}
-
-
 
 //Instancias
 let board = new Board()
@@ -402,13 +388,18 @@ let beer1 = new Miscelanea(100,710)
 let beer2 = new Miscelanea(755,154)
 
 function start(){
-    gameOn=false
+    frames=0
+    gameOn=true
     interval =setInterval(update,1000/60)
     score=0
-    mensaje()
+    ghost.x=800
+    ghost.y=-200
+    anciano.x=50
+    anciano.y=685
 }
 
 function update(){
+    console.log(interval)
     ctx.clearRect(0,0,canvas.width,canvas.height)
     frames++
     board.draw()
@@ -480,7 +471,6 @@ function gameOver(){
     ctx.fillText("GAME OVER", 150,330)
     gameOn=false
     document.getElementById("start").innerText="Reiniciar"
-
 }
 
 

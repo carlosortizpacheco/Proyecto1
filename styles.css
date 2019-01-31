@@ -10,7 +10,7 @@ h1{
     font-family: 'VT323';
     font-weight: bold;
     font-size: 80px;
-    color:rgb(172, 171, 171);
+    color:white;
     text-align: center;
     margin-top:  5%;
     border-bottom: 2px solid rgb(49, 49, 49);
@@ -26,7 +26,7 @@ canvas{
 }
 
 #philosophy{
-    color:rgb(172, 171, 171);
+    color:white;
     font-family: 'VT323';
     font-size: 40px;
     padding-top: 5%;
@@ -39,7 +39,7 @@ canvas{
 }
 
 h2{
-    color:rgb(172, 171, 171);
+    color:white;
     font-family: 'VT323';
     font-size: 27px;
     text-align: left;
@@ -62,13 +62,14 @@ h2{
 }
 
 button{
-    color:rgb(172, 171, 171);
+    color:white;
     font-size: 30px;
     font-family: 'VT323';
     font-weight: bold;
     margin-top:5px;
     margin-left: 20%;
     padding: 10px;
+    background-color: black;
 }
 
 a{
